@@ -1,11 +1,13 @@
 
 import { User } from "../Model/User.js"
 import bcrypt from "bcryptjs";
-
+import jwt from "jsonwebtoken"
 
 export const signup = async(req , res)=>{
 
      const {username , password}  = req.body  ;
+
+     if(username == "" || password == "") return res.send({  message : "please fill all Input" , success  : false  }) ;
 
      let userResponse  = await User.findOne({username :  username}) ;
  
@@ -32,11 +34,9 @@ export const signup = async(req , res)=>{
            message :  "user Saved Successful"  , 
            userResponse ,
            success: true
-     })
-            
+     })    
 
 }
-
 
 
 export const loginController = async(req ,res)=>{
@@ -63,9 +63,12 @@ export const loginController = async(req ,res)=>{
          success : false
      })   
 
+     let token = jwt.sign({user : checkEmail._id} , process.env.LOGIN_TOKEN_KEY ,  { expiresIn: "1h" })
+
      res.send({
          message : "Login success" , 
-         success : false 
+         token ,
+         success : true
      })
 
 }
