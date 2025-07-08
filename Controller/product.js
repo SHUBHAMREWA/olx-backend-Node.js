@@ -8,7 +8,7 @@ import { v2 as cloudinary } from 'cloudinary' ;
 export const addProduct = async(req ,  res) =>{  
       
        const file = req.file.path ;
-       
+
        const { productName , productDescription , productPrice , productcategory }   =  req.body  ;
 
        if( productName == "" || productDescription == "" || productPrice == "" ||  productcategory == "") {
@@ -58,4 +58,29 @@ export const getProduct = async(req ,res)=>{
           sucesss : true 
      })
             
+}
+
+
+
+export const getSingleProduct = async(req ,res)=>{ 
+
+    let id = req.params.id  ;
+
+     let pDetails  = await Product.findOne({_id : id})  ;
+ 
+     console.log(pDetails)
+     
+     if(!pDetails)  res.send({
+          message : "product details not found" ,
+          success : false
+     })
+
+     res.send({
+          message  : "product details founded" ,
+          success : true  , 
+          data : pDetails
+     })
+             
+          
+        
 }

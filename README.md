@@ -106,3 +106,19 @@ const user = await User.findById(decode.user).populate("likedproducts");
 - This returns detailed info of each liked product.
 
 ---
+
+Day - 4 
+---
+
+## 🔙 Backend: Get Single Product Details
+
+Implemented backend API to fetch **individual product details** using dynamic routing and MongoDB.
+
+---
+
+### 🔗 Route Setup
+
+**API Endpoint**:
+
+```http
+GET /product/:id

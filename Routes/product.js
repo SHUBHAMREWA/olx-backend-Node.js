@@ -1,7 +1,7 @@
 
 
 import express from "express"  ;
-import { addProduct , getProduct } from "../Controller/product.js";
+import { addProduct , getProduct ,getSingleProduct } from "../Controller/product.js";
 import multer from "multer"; 
 import path from "path"
 
@@ -26,7 +26,8 @@ const storage = multer.diskStorage({
 
 route.post("/product-details"  , upload.single("productImage") , addProduct ) ; 
 
-route.get("/allProducts"  , getProduct )   
+route.get("/allProducts"  , getProduct )    ;
 
+route.get("/product/:id" , getSingleProduct) ;
 
 export default route ;
