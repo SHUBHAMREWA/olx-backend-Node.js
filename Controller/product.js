@@ -7,8 +7,9 @@ import { v2 as cloudinary } from 'cloudinary' ;
 
 export const addProduct = async(req ,  res) =>{  
       
-       const file = req.file.path
-       const { productName , productDescription , productPrice , productcategory }   =  req.body
+       const file = req.file.path ;
+       
+       const { productName , productDescription , productPrice , productcategory }   =  req.body  ;
 
        if( productName == "" || productDescription == "" || productPrice == "" ||  productcategory == "") {
            return res.send({

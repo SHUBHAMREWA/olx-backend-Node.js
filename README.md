@@ -52,3 +52,57 @@ Used [`multer`](https://www.npmjs.com/package/multer) for handling incoming imag
 
 ---
 
+Day 3 
+---
+
+## ❤️ Wishlist (Liked Products) Feature
+
+Implemented **Liked Products** feature using MongoDB `ObjectId` reference between `User` and `Product` models.
+
+---
+
+### 🏗️ Schema Update
+
+User schema updated with a new field:
+
+```js
+likedproducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }]
+```
+
+- This allows users to like multiple products.
+- Stored as an array of ObjectIDs referencing the `Product` model.
+
+---
+
+### 🔄 Like Product API
+
+**Endpoint**: `/liked-products`  
+**Method**: `POST`
+
+Logic:
+
+```js
+await User.updateOne(
+  { _id: decode.user },
+  { $addToSet: { likedproducts: productId } }
+);
+```
+
+- 🔁 `$addToSet` is used instead of `$push` to avoid duplicate entries in the array.
+
+---
+
+### 📅 Get Liked Products API
+
+**Endpoint**: `/get-liked-products`  
+**Method**: `POST`
+
+- Uses `.populate("likedproducts")` to fetch full product details based on savedbject OIDs in user's `likedproducts` array.
+
+```js
+const user = await User.findById(decode.user).populate("likedproducts");
+```
+
+- This returns detailed info of each liked product.
+
+---

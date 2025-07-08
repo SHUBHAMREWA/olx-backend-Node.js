@@ -1,7 +1,8 @@
 
 import { User } from "../Model/User.js"
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken"  ;
+
 
 export const signup = async(req , res)=>{
 
@@ -63,7 +64,7 @@ export const loginController = async(req ,res)=>{
          success : false
      })   
 
-     let token = jwt.sign({user : checkEmail._id} , process.env.LOGIN_TOKEN_KEY ,  { expiresIn: "1h" })
+     let token = jwt.sign({user : checkEmail._id} , process.env.LOGIN_TOKEN_KEY ,  { expiresIn: "1d" })
 
      res.send({
          message : "Login success" , 

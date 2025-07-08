@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose"  ;
 import userRoutes from "./Routes/user.js" ; 
 import productRoute from "./Routes/product.js"
+import likedRoute from "./Routes/likeProduct.js"
 import {config} from "dotenv"  ;
 import cors from "cors"  ;
 import { v2 as cloudinary } from 'cloudinary' ;
@@ -43,6 +44,7 @@ app.use(cors())
 
 app.use("/" , userRoutes)
 app.use("/" , productRoute)
+app.use("/" , likedRoute)
 
 
 
