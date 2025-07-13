@@ -6,22 +6,29 @@ import jwt from "jsonwebtoken"  ;
 
 export const signup = async(req , res)=>{
 
-     const {username , password}  = req.body  ;
+     const {username , password , email  , mobile}  = req.body  ;  
 
-     if(username == "" || password == "") return res.send({  message : "please fill all Input" , success  : false  }) ;
+     console.log("this is userInfo" , username , password , email  , mobile)
 
-     let userResponse  = await User.findOne({username :  username}) ;
+     if(username == "" || password == "" || email == "" ||  mobile == "") return res.send({  message : "please fill all Input" , success  : false  }) ;
+
+     let userResponse  = await User.findOne({email :  email}) ;
  
      if(userResponse) return res.send({
          message : "user already Exist try to login OR create other user" ,
-         success: false
+         success : false
      })  
 
 
      let hashPassword = await bcrypt.hash(password , 10)  ;
      
 
-      userResponse = await User.create({ username : username , password : hashPassword})  ;   
+      userResponse = await User.create({ 
+        username : username ,
+         password : hashPassword ,
+         email  : email ,
+         mobile : mobile
+        })  ;   
 
 
      if(!userResponse)  res.send({ 
@@ -42,15 +49,17 @@ export const signup = async(req , res)=>{
 
 export const loginController = async(req ,res)=>{
           
-    const {username , password}  =  req.body ;
+    const {email , password}  =  req.body ;
+
+
   
-     if(username == ""  || password == "")  return res.send({  
+     if( password == "" || email == "" )  return res.send({  
            message : "please submit valid username  & password " ,
            success : false 
      })  
 
 
-     let checkEmail  = await User.findOne({username : username})  ;
+     let checkEmail  = await User.findOne({email : email})  ;
 
      if(!checkEmail)  return res.send({
           message : "user not found" , 

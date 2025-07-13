@@ -6,7 +6,8 @@ const schema = mongoose.Schema({
          productDescription : String ,
          productPrice : String ,
          productcategory : String , 
-         productImage : String ,
+         productImage : [String] ,
+         addedBy     :  { type: mongoose.Schema.Types.ObjectId, ref: "users" } ,
          createdAt  : {type : Date , default: Date.now} 
 })
 

@@ -11,6 +11,11 @@ export  const likedController = async(req ,res)=>{
     let productId = req.body.productId  
   
     let decode = jwt.verify(token , process.env.LOGIN_TOKEN_KEY) ;
+
+    if(!decode) return res.send({
+        message : "user not verify" , 
+        success : false
+    })
  
     let updateLike = await User.updateOne(
         { _id : decode.user}  , 
@@ -31,6 +36,7 @@ export  const likedController = async(req ,res)=>{
 }
 
 
+
 export const getLikeProducts = async(req, res)=>{
       
     let token = req.body.token ; 
@@ -38,7 +44,7 @@ export const getLikeProducts = async(req, res)=>{
     let decode = jwt.verify(token , process.env.LOGIN_TOKEN_KEY) ;
 
     if(!decode) return res.send({
-           message :  "User not verify", 
+           message :  "User not verify" , 
            sucess : false
     })
 

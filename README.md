@@ -122,3 +122,29 @@ Implemented backend API to fetch **individual product details** using dynamic ro
 
 ```http
 GET /product/:id
+
+
+--- 
+
+Day 5
+
+---
+
+## adding addition schema in user Signup Route like this 
+
+const schema  = mongoose.Schema({
+
+       username : {type : String , require : true }  , 
+       password : {type : String , require : true} ,
+       email  : {type : String , require : true}  ,
+       mobile : {type : String , require  :true} ,
+       createdAt : { type : Date , default : Date.now} , 
+       likedproducts : [{type: mongoose.Schema.Types.ObjectId , ref: "product" }]  
+       
+})
+
+
+
+export  const User = mongoose.model("users" ,  schema) ;
+
+---
